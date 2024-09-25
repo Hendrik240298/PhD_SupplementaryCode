@@ -1,0 +1,33 @@
+## Listing of Parameters
+# ---------------------
+subsection General
+  set Refinements = 3                                                                 # Number of global refinements of mesh ---> for thesis use: 3 (or 4) / for debugging use: 2
+  set POD size = 40                                                                   # Maximum size of the POD basis
+  set POD greedy size = 75
+  set Information content = 0.99 #1.01                                                       # Minimum information content of POD basis
+  set Information content greedy = 0.99 #0.99 #1.01  
+  set FEM solve = true                                                               # Solve the PDE with FEM
+  set POD solve = false
+  set POD GREEDY solve = false
+  set ROM solve = false                                                        # Solve the PDE with POD-ROM
+  set Compute error = true                                                           # Compute the error between the FEM and the POD solution
+  set Output files = true                                                             # Output vtk and h5 files
+  set Test case = 2D-2                                                                # Name of Navier Stokes test case
+  set Newton tolerance = 1.0e-8                                                       # Tolerance for the Newton solver
+  set Density fluid = 1.0                                                             # Fluid density
+  set Viscosity = 0.0009090909 #769#1.0e-3                                                              # Fluid viscosity
+  set Start time = 	0.0#25.0                                                               # Start time
+  set Initial solution snapshot = result/FEM/#  mu=0.000667/snapshots/snapshot_000000.h5  # snapshot_initial_condition_t=25_ref=3_no_cuthill.h5 # Snapshot of the initial condition (is being used if start_time > 0.0)
+  set Coarse timestep = 0.05                                                          # Coarse timestep size to compute the initial solution
+  set Coarse endtime = 3.5                                                            # How long until initial solution has been computed?
+  set Fine timestep = 0.005                                                           # Fine timestep size after initial solution #quick simulation: 0.01 #very fine: 0.0025  #good results: 0.005
+  set Fine endtime = 30.0 #27.0                                                             # End time of the FEM computations
+  set POD start time = 10.0 #1.6
+  set POD offline = false
+  #set FEM path = $RESULT/FEM/
+  set FEM path = /home/ifam/fischer/Code/result/FEM/long/
+  #set POD path = $RESULT/POD/tmp/
+  set POD path = /home/ifam/fischer/Code/result/POD/greedy/
+  #set ROM path = $RESULT/ROM/
+  set ROM path = /home/ifam/fischer/Code/result/ROM/greedy/
+end

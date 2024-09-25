@@ -1,0 +1,6 @@
+old_source
+CMakeFiles
+CMakeCache.txt
+Makefile
+CMakeFiles/*
+/.metadata/

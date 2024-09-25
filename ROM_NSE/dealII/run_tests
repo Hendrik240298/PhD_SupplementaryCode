@@ -1,0 +1,43 @@
+#!/bin/bash
+
+RESULT_FILE_PATH="thesis/resultsXXX.txt"
+mkdir -p $RESULT_FILE_PATH # create directory and new intermediate directories if necessary (-p)
+rm -r $RESULT_FILE_PATH # remove the new directory
+
+./clean
+
+# 3. ONLY SOLVE PDE WITH POD-ROM
+for i in {1..25}
+do
+  echo "------------------ POD BASIS SIZE: $i ------------------"
+
+  if [[ $i != 1 ]]
+  then
+    sed -i "s/  set POD size = "$(($i-1))"/  set POD size = "$i"/g" options.prm
+  fi
+
+  echo ""
+  echo "************************"
+  echo "***   options.prm:   ***"
+  echo "************************"
+  cat options.prm
+  echo "************************"
+  echo ""
+
+  # time the execution of the computations
+  start=`date +%s`
+
+  ./clean # remove all old result files: vtk files, h5 files, ...
+  ./run  >> "${RESULT_FILE_PATH/XXX/$i}" # run POD computations and store terminal output in file
+  # in RESULT_FILE_PATH replace XXX by i
+  #echo "test" >> "${RESULT_FILE_PATH/XXX/$i}"
+  #mkdir -p "${RESULT_FILE_PATH/XXX.txt/$i}/POD"
+  #mkdir -p "${RESULT_FILE_PATH/XXX.txt/$i}/ROM"
+  cp -r result/POD "${RESULT_FILE_PATH/XXX.txt/$i}" # copy all result files in RESULT_FILE_PATH directory
+  cp -r result/ROM "${RESULT_FILE_PATH/XXX.txt/$i}" # copy all result files in RESULT_FILE_PATH directory
+
+  # output computation time
+  end=`date +%s`
+  echo "COMPUTATION TIME (ROM): "$(($end-$start))" seconds"
+
+done

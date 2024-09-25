@@ -1,0 +1,1 @@
+Mean of effectivity_index: 0.4677828297363597Std of effectivity_index: 0.16114670918110205Max of effectivity_index: 1.0000294050870056Min of effectivity_index: 0.05514653612750727

@@ -1,0 +1,16 @@
+condor_submit rom-nse_fem_mu_050.submit
+condor_submit rom-nse_fem_mu_060.submit
+condor_submit rom-nse_fem_mu_070.submit
+condor_submit rom-nse_fem_mu_080.submit
+condor_submit rom-nse_fem_mu_090.submit
+condor_submit rom-nse_fem_mu_100.submit
+condor_submit rom-nse_fem_mu_110.submit
+condor_submit rom-nse_fem_mu_120.submit
+condor_submit rom-nse_fem_mu_130.submit
+condor_submit rom-nse_fem_mu_140.submit
+condor_submit rom-nse_fem_mu_150.submit
+condor_submit rom-nse_fem_mu_160.submit
+condor_submit rom-nse_fem_mu_170.submit
+condor_submit rom-nse_fem_mu_180.submit
+condor_submit rom-nse_fem_mu_190.submit
+condor_submit rom-nse_fem_mu_200.submit

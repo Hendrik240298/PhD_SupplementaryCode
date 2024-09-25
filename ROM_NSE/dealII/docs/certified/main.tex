@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{%
+	pdfborder = {0 0 0}
+}
+\usepackage[
+backend=biber,
+style=numeric-comp,
+sorting=anyt,
+sortcites=true
+]{biblatex}
+%\usepackage{cite}
+\usepackage[width=18.6cm, top=25mm, bottom=35mm, footskip=15mm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{titlesec}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{verbatim}
+\usepackage{comment}
+%\usepackage{cite}
+\titleformat*{\section}{\large\bfseries}
+
+\newcommand{\pow}[1]{$^#1$}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Pspace}{\mathbb{P}}
+\newcommand{\Vspace}{\mathbb{V}}
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Zc}{\mathcal{Z}}
+\newcommand{\landau}{\mathcal{O}}
+\newcommand{\lagr}{\mathcal{L}}
+\newcommand{\dt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\dx}[2]{\frac{\partial #1}{\partial x_{#2}}}
+\newcommand{\bigbr}[1]{\left[ #1 \right]}
+%
+\addbibresource{bib.bib}
+
+\title{Certified Error Control for unsteady incompressible Navier-Stokes Equations}
+%\subtitle{h}
+\author{Hendrik Fischer}
+\date{}
+%
+\begin{document}
+%
+\maketitle
+%
+\tableofcontents
+%
+\newpage
+\section{Estimates}
+%
+Dual norm of residual:
+\begin{align}
+\varepsilon_N(t^k;\mu) = \sup\limits_{v \in X^\Nc} \frac{r_N(v;t^k;\mu)}{||v||_X},  \hspace{2cm} 1 \leq k \leq K
+\end{align}
+%
+Stability constant:
+\begin{align}
+ \alpha^\Nc(\mu) &= \inf\limits_{v \in X^\Nc} \frac{a(v,v;\mu)}{||v||_X^2}, \hspace{2cm} \forall \mu \in \Dc \\
+ \rho_N^{LB}(t^{k};\mu) &= \inf\limits_{v \in \Zc^\Nc} \frac{2c(u_N(t^k;\mu),v,v)+a(v,v)}{||v||^2}
+\end{align}
+%
+Estimates definitions:
+\begin{align}
+ ||u^{\Nc k}(\mu) - u^k_N(\mu)|| &\leq \Delta^k_N(\mu) \\
+ |s^{\Nc k}(\mu) - s^k_N(\mu)| &\leq \Delta^{s k}_N (\mu)
+\end{align}
+Linear parabolic eqautions:
+\begin{align}
+    \Delta^k_N(\mu) &= \sqrt{
+    \frac{
+    \frac{\Delta t}{\alpha^\Nc_{LB}} 
+    \sum\limits_{k'=1}^k
+    \big(
+    \varepsilon_N^2(t^{k'};\mu)(1+\Delta t \alpha^\Nc_{LB}(\mu))^{k'-1}
+    \big)}
+    {(1+\Delta t \alpha^\Nc_{LB}(\mu))^k}}, \\
+    \Delta^{s k}_N (\mu) &=
+    \bigg(
+    \sup\limits_{v \in X^\Nc} \frac{l(v)}{||v||}
+    \bigg) \Delta^k_N(\mu).
+\end{align}
+Nonlinear parabolic equations:
+\begin{align}
+    \Delta^k_N(\mu) &= \sqrt{
+    \frac{
+    \Delta t 
+    \sum\limits_{k'=1}^k
+    \big(
+    \varepsilon_N^2(t^{k'};\mu)
+    \Pi\limits_{j=1}^{k'-1}
+    (1+\Delta t \rho_N^{LB}(t^j;\mu))
+    \big)
+    }{
+    \Pi\limits_{k'=1}^{k}(1+\Delta t \rho_N^{LB}(t^{k'};\mu))
+    }
+\end{align}
+\newpage
+\printbibliography
+\end{document}

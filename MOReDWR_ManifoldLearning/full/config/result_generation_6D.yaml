@@ -1,0 +1,46 @@
+###########
+# This is the standard configuration file for the MORe DWR Manifold Learning Code.
+# python3 main_greedy.py config/result_generation_6D.yaml
+###########
+
+# FOM settings
+FOM: 
+  start_time: 0.0
+  end_time: 10.0
+  dt: 0.001
+  mesh_size: 50  # nx=ny
+
+# ROM Settings
+ROM: 
+  # Total energy of POD
+  total_energy: 
+    # NOTE: lost energy is stated
+    primal: 0. #1.e-12
+    dual: 0. #1.e-14
+  max_iterations: 100
+
+Greedy:
+  max_iterations: 100
+  tolerance: 1.e-2 # NOTE: this is a relative tolerance
+  eval_error_last_time_step: true # easily switch between error estimation on full trajectory or only last time step 
+  surrogate:
+    dimension: 6 # AIM: 1, 4, 8, 16
+    min_value: 1.
+    max_value: 5.
+    num_values: 3
+  meyer_matthies:
+    execute: false
+    min_iterations: 2
+  MOReDWR:
+    max_iterations: 200 #200 #how many MOReDWR iterations/steps in each Greedy loop iteration
+    cost_function_treshold: 0.20 # c.f. [[add a treshold for errors to be considered based on value of cost functional]], i.e. if cost functional is below this value, then the error is ignored by setting to 0. Thus, we neglect dust of cost functionals that are to near to zero.
+
+# other settings for infrastructure of code
+Infrastructure:
+  save_directory: "results/full/6D/"
+  plot_directory: "plots/full/6D/"
+
+
+Postprocessing: 
+  compute_FOM: false
+  plot_data: false # NOTE: activate only for plots. THIS will DESTROY the perfomance.

@@ -1,0 +1,3 @@
+Total FOM solves:    884
+End Primal POD size: 442
+End Dual POD size:   423Total iterations:    442

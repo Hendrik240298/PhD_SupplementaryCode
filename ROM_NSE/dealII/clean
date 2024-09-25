@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [[ $1 == 'all' ]]
+then
+  rm -r CMakeFiles/
+  rm CMakeCache.txt
+  rm cmake_install.cmake
+  rm main
+  rm Makefile
+fi
+
+if [[ $1 == 'fem' ]]
+then
+  rm result/FEM/snapshots/*.h5
+  rm result/FEM/solution/*.vtk
+
+  rm result/FEM/pressure.txt
+  rm result/FEM/drag.txt
+  rm result/FEM/lift.txt
+fi
+
+rm result/POD/pod_vectors/h5/*.h5
+rm result/POD/pod_vectors/vtk/*.vtk
+rm result/POD/eigenvalues.txt
+rm result/ROM/solution/*.vtk
+
+rm result/POD/pod_vectors_pressure/h5/*.h5
+rm result/POD/pod_vectors_pressure/vtk/*.vtk
+rm result/POD/eigenvalues_pressure.txt
+rm result/ROM/solution_pressure/*.vtk
+rm result/ROM/pressure.txt
+rm result/ROM/drag.txt
+rm result/ROM/lift.txt
+rm result/ROM/loss.txt
+rm result/ROM/loss.png

@@ -1,0 +1,93 @@
+close all;
+
+path2fem = '../result/FEM/';
+path2rom = '../result/ROM/test2/';
+
+RE =[50,100,150];
+
+for i = 1:length(RE)
+
+parameter = 0.1/RE(i);
+
+duration = 198;
+
+pressure = importdata([path2fem, 'mu=', num2str(parameter,'%6.6f'), '/pressure.txt']);
+pressure_rom = importdata([path2rom, 'mu=', num2str(parameter,'%6.6f'), '/pressure.txt']);
+% pressure_rom = pressure_rom(end-duration:end,:);
+
+drag = importdata([path2fem, 'mu=', num2str(parameter,'%6.6f'), '/drag.txt']);
+drag_rom = importdata([path2rom, 'mu=', num2str(parameter,'%6.6f'), '/drag.txt']);
+% drag_rom = drag_rom(end-duration:end,:);
+
+
+lift = importdata([path2fem, 'mu=', num2str(parameter,'%6.6f'), '/lift.txt']);
+lift_rom = importdata([path2rom, 'mu=', num2str(parameter,'%6.6f'), '/lift.txt']);
+% lift_rom = lift_rom(end-duration:end,:);
+
+
+% figure
+% plot(pressure_rom(:,1),pressure(:,2))c
+% hold on
+% plot(pressure_rom(:,1),pressure_rom(:,2));
+% legend('full','rom');
+
+if length(pressure(:,2)) == length(pressure_rom(:,2))
+    if norm(pressure(:,2)-pressure_rom(:,2)) > 1e-10
+        disp('Achtung falscher Druck');
+    end
+end
+
+f{i} = figure('Name',['Re: ', num2str(0.1/parameter)]);
+f{i}.Position(1:4) = [650*(i-1), 558, 625, 800];
+
+subplot(4,1,1)
+% plot(drag(end-duration:end,1)-drag(1,1),drag(end-duration:end,2));
+plot(drag_rom(:,1),drag(:,2));
+hold on
+plot(drag_rom(:,1),drag_rom(:,2));
+xlim([drag_rom(1,1),drag_rom(end,1)])
+grid on;
+title('drag')
+legend('fom','rom');
+
+subplot(4,1,2)
+plot(drag_rom(:,1),100*(drag(:,2)-drag_rom(:,2))./drag(:,2));
+xlim([drag_rom(1,1),drag_rom(end,1)])
+grid on;
+legend('error %');
+xlabel(['mean: ', num2str( 100*sum(abs(drag(:,2)-drag_rom(:,2)))/sum(abs(drag(:,2)))), '%'])
+
+
+subplot(4,1,3)
+plot(lift_rom(:,1),lift(:,2));
+hold on
+plot(lift_rom(:,1),lift_rom(:,2));
+xlim([drag_rom(1,1),drag_rom(end,1)])
+grid on;
+title('lift');
+legend('fom','rom');
+
+subplot(4,1,4)
+plot(lift_rom(:,1),(lift(:,2)-lift_rom(:,2)));
+xlim([drag_rom(1,1),drag_rom(end,1)])
+grid on;
+xlabel(['mean: ', num2str( 100*sum(abs(lift(:,2)-lift_rom(:,2)))/sum(abs(lift(:,2)))), '%'])
+legend('error abs');
+
+figure
+plot(drag_rom(:,1),drag(:,2));
+hold on
+plot(drag_rom(:,1),drag_rom(:,2));
+xlim([drag_rom(1,1),drag_rom(end,1)])
+grid on;
+legend('fom','rom');
+saveas(gcf,['drag_',num2str(RE(i))],'epsc');
+
+figure
+plot(lift_rom(:,1),lift(:,2));
+hold on
+plot(lift_rom(:,1),lift_rom(:,2));
+xlim([drag_rom(1,1),drag_rom(end,1)])
+grid on;
+legend('fom','rom');
+end

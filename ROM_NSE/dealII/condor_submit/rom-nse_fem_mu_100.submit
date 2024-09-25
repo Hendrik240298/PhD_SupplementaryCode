@@ -1,0 +1,25 @@
+IFAM_CAP           = NUMA_C_COMPUTE
+Requirements = stringListMember("$(IFAM_CAP)",IFAM_CAPABILITIES,",") == True
+
+workspace = /home/ifam/fischer/Code/rom-nse
+outputdir = /home/ifam/fischer/Code/result/condor
+
+request_memory = 64 GB
+request_cpus = 8
+request_disk = 16 MB
+
+Executable     = /opt/ifam/env/execenv
+Universe       = vanilla
+Arguments      = "ifam-8.1.0-V1 'cd $(outputdir) && $(workspace)/main $(workspace)/parameter_files/fem_long/options_fem_long_mu=100.prm'"
+
+notification = Always
+notify_user =fischer@ifam.uni-hannover.de
+#transfer_executable = False
+
+Output         = $(outputdir)/experiment-$(Cluster).out
+Error          = $(outputdir)/experiment-$(Cluster).err
+Log            = $(outputdir)/experiment-$(Cluster).log
+
+
+queue
+

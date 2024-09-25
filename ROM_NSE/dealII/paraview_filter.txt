@@ -1,0 +1,13 @@
+v_x_0 = inputs[0].PointData['x_velo']
+v_x_1 = inputs[1].PointData['x_velo']
+
+v_y_0 = inputs[0].PointData['y_velo']
+v_y_1 = inputs[1].PointData['y_velo']
+
+p_0 = inputs[0].PointData['p_fluid']
+p_1 = inputs[1].PointData['p_fluid']
+
+output.PointData.append(abs(v_x_1 - v_x_0), 'x_velo_diff')
+output.PointData.append(abs(v_y_1 - v_y_0), 'y_velo_diff')
+output.PointData.append(abs(p_1 - p_0), 'p_fluid_diff')
+

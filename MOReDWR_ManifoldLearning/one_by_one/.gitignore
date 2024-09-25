@@ -1,0 +1,10 @@
+*.mp4
+__pycache__
+.coverage
+**.vtu
+**.pvd
+run-fencis.err.0
+run-fencis.out.0
+run-fencis.log
+**.npz
+**.pkl

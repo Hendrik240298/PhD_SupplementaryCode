@@ -1,0 +1,18 @@
+v_0 = inputs[0].PointData['velocity_0']
+v_1 = inputs[1].PointData['x_velo']
+
+diff_rel = v_1-v_1
+diff_rel_post = v_1-v_1
+eps = 0.05
+for i in range(v_1.size):
+    diff_rel[i] = abs(v_1[i] - v_0[i])/max(abs(v_1[i]),0.01)
+    if abs(v_1[i] - v_0[i]) < eps:
+        diff_rel_post[i] = 0
+    else:
+        diff_rel_post[i] = abs(v_1[i] - v_0[i])/max(abs(v_1[i]),0.01)
+
+output.PointData.append(abs(v_1 - v_0), 'difference')
+output.PointData.append(diff_rel, 'difference - relative')
+output.PointData.append(diff_rel_post, 'difference _post- relative')
+output.PointData.append(abs(v_1), 'velo - abs')
+
