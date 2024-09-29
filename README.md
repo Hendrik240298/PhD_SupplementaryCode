@@ -1,4 +1,4 @@
-# PhD_SupplementaryCode
+# PhD Supplementary Code
 
 This repository contains the supplementary code for my PhD thesis **"Goal-oriented error control for space-time reduced-order modeling using incremental proper orthogonal decomposition"**.
 
